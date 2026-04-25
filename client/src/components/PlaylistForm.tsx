@@ -150,7 +150,7 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
         className="relative flex items-center justify-center w-36 h-36 mb-10"
         aria-live="polite"
         aria-label={`Target BPM: ${displayBPM ?? "not calculated"}`}
-      >
+      >c
         {/* Animated rings */}
         <div className="absolute inset-0 rounded-full border border-lime-400/25 animate-ping [animation-duration:2.4s]" />
         <div className="absolute -inset-4 rounded-full border border-lime-400/10 animate-pulse [animation-duration:3s]" />
