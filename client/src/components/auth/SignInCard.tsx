@@ -5,7 +5,7 @@
  */
  
 import { SpotifyLoginButton } from "./SpotifyLoginButton";
-import { PermissionsDisclosure } from "./PermissionDisclousre";
+import { PermissionsDisclosure } from "./PermissionsDisclosure";
 import { LegalFooter } from "./LegalFooter";
  
 interface SignInCardProps {
