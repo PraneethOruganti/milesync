@@ -28,26 +28,25 @@
  *    },
  */
 
-import { useForm, useStore } from "@tanstack/react-form";
-import { useState } from "react";
-import type { PlaylistFormValues } from "../types/playlist";
+import { useForm, useStore } from '@tanstack/react-form';
+import { useState } from 'react';
+import type { PlaylistFormValues } from '../types/playlist';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-export type PaceUnit = "min/mi" | "min/km";
-export type DistanceUnit = "miles" | "km";
-export type TimingMode = "pace+distance" | "duration";
-
+export type PaceUnit = 'min/mi' | 'min/km';
+export type DistanceUnit = 'miles' | 'km';
+export type TimingMode = 'pace+distance' | 'duration';
 
 const GENRE_OPTIONS = [
-  { id: "hip-hop", label: "Hip-Hop" },
-  { id: "pop", label: "Pop" },
-  { id: "rock", label: "Rock" },
-  { id: "electronic", label: "Electronic" },
-  { id: "indie", label: "Indie" },
-  { id: "metal", label: "Metal" },
-  { id: "r-n-b", label: "R&B" },
-  { id: "latin", label: "Latin" },
+  { id: 'hip-hop', label: 'Hip-Hop' },
+  { id: 'pop', label: 'Pop' },
+  { id: 'rock', label: 'Rock' },
+  { id: 'electronic', label: 'Electronic' },
+  { id: 'indie', label: 'Indie' },
+  { id: 'metal', label: 'Metal' },
+  { id: 'r-n-b', label: 'R&B' },
+  { id: 'latin', label: 'Latin' },
 ];
 
 // ─── BPM helpers ──────────────────────────────────────────────────────────────
@@ -58,11 +57,7 @@ function calcBPM(paceMinutes: number, paceSeconds: number): number | null {
   return Math.round(2000 / (totalSec / 60));
 }
 
-function calcDuration(
-  distance: number,
-  paceMinutes: number,
-  paceSeconds: number,
-): number | null {
+function calcDuration(distance: number, paceMinutes: number, paceSeconds: number): number | null {
   const paceInMin = paceMinutes + paceSeconds / 60;
   if (!paceInMin || !distance) return null;
   return Math.round(distance * paceInMin);
@@ -71,15 +66,14 @@ function calcDuration(
 // ─── Shared class strings ─────────────────────────────────────────────────────
 
 const inputCls =
-  "w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2.5 " +
-  "font-mono text-sm text-white outline-none transition-all duration-150 " +
-  "focus:border-lime-400 focus:ring-2 focus:ring-lime-400/20 " +
-  "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
+  'w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2.5 ' +
+  'font-mono text-sm text-white outline-none transition-all duration-150 ' +
+  'focus:border-lime-400 focus:ring-2 focus:ring-lime-400/20 ' +
+  '[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none';
 
-const inputErrCls =
-  "!border-red-500/70 focus:!border-red-500 focus:!ring-red-500/20";
+const inputErrCls = '!border-red-500/70 focus:!border-red-500 focus:!ring-red-500/20';
 
-const labelCls = "text-[10px] tracking-widest uppercase text-white/40";
+const labelCls = 'text-[10px] tracking-widest uppercase text-white/40';
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -88,18 +82,18 @@ interface PlaylistFormProps {
 }
 
 export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
-  const [timingMode, setTimingMode] = useState<TimingMode>("pace+distance");
+  const [timingMode, setTimingMode] = useState<TimingMode>('pace+distance');
 
   const form = useForm({
     defaultValues: {
       paceMinutes: 9,
       paceSeconds: 0,
-      paceUnit: "min/mi",
+      paceUnit: 'min/mi',
       distance: 3,
-      distanceUnit: "miles",
-      timingMode: "pace+distance",
+      distanceUnit: 'miles',
+      timingMode: 'pace+distance',
       durationMinutes: 30,
-      genres: ["hip-hop", "pop"],
+      genres: ['hip-hop', 'pop'],
       halfTimeEnabled: false,
       doubleTimeEnabled: false,
     },
@@ -124,18 +118,14 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
     : null;
 
   const durationPreview =
-    timingMode === "pace+distance"
-      ? calcDuration(distance, paceMin, paceSec)
-      : null;
+    timingMode === 'pace+distance' ? calcDuration(distance, paceMin, paceSec) : null;
 
   return (
     <div className="min-h-screen bg-[#09090f] text-white flex flex-col items-center px-5 py-10 pb-20 font-mono">
       {/* ── Logo / Header ── */}
       <header className="mb-8 text-center">
         <div className="flex items-center justify-center gap-2 mb-1">
-          <span className="text-2xl text-lime-400 animate-spin [animation-duration:6s]">
-            ◎
-          </span>
+          <span className="text-2xl text-lime-400 animate-spin [animation-duration:6s]">◎</span>
           <span className="font-display text-[2rem] font-extrabold tracking-tight leading-none">
             MileSync
           </span>
@@ -149,20 +139,17 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
       <div
         className="relative flex items-center justify-center w-36 h-36 mb-10"
         aria-live="polite"
-        aria-label={`Target BPM: ${displayBPM ?? "not calculated"}`}
-      >c
-        {/* Animated rings */}
+        aria-label={`Target BPM: ${displayBPM ?? 'not calculated'}`}
+      >
+        c{/* Animated rings */}
         <div className="absolute inset-0 rounded-full border border-lime-400/25 animate-ping [animation-duration:2.4s]" />
         <div className="absolute -inset-4 rounded-full border border-lime-400/10 animate-pulse [animation-duration:3s]" />
-
         {/* Inner disk */}
         <div className="relative z-10 w-[108px] h-[108px] rounded-full bg-white/[0.04] border border-white/10 flex flex-col items-center justify-center gap-0.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]">
           <span className="font-display text-[2.5rem] font-extrabold text-lime-400 leading-none tabular-nums transition-all duration-200">
-            {displayBPM ?? "–"}
+            {displayBPM ?? '–'}
           </span>
-          <span className="text-[9px] tracking-[0.2em] uppercase text-white/35">
-            BPM
-          </span>
+          <span className="text-[9px] tracking-[0.2em] uppercase text-white/35">BPM</span>
         </div>
       </div>
 
@@ -184,22 +171,19 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
             <form.Field
               name="paceMinutes"
               validators={{
-                onChange: ({ value }) =>
-                  value < 1 || value > 30 ? "1–30" : undefined,
+                onChange: ({ value }) => (value < 1 || value > 30 ? '1–30' : undefined),
               }}
             >
               {(field) => (
                 <div className="flex flex-col gap-1.5 w-[72px]">
                   <label className={labelCls}>Min</label>
                   <input
-                    className={`${inputCls} text-center ${field.state.meta.errors.length ? inputErrCls : ""}`}
+                    className={`${inputCls} text-center ${field.state.meta.errors.length ? inputErrCls : ''}`}
                     type="number"
                     min={1}
                     max={30}
                     value={field.state.value}
-                    onChange={(e) =>
-                      field.handleChange(parseInt(e.target.value) || 0)
-                    }
+                    onChange={(e) => field.handleChange(parseInt(e.target.value) || 0)}
                   />
                   {field.state.meta.errors.length > 0 && (
                     <span className="text-[10px] text-red-400">
@@ -218,22 +202,19 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
             <form.Field
               name="paceSeconds"
               validators={{
-                onChange: ({ value }) =>
-                  value < 0 || value > 59 ? "0–59" : undefined,
+                onChange: ({ value }) => (value < 0 || value > 59 ? '0–59' : undefined),
               }}
             >
               {(field) => (
                 <div className="flex flex-col gap-1.5 w-[72px]">
                   <label className={labelCls}>Sec</label>
                   <input
-                    className={`${inputCls} text-center ${field.state.meta.errors.length ? inputErrCls : ""}`}
+                    className={`${inputCls} text-center ${field.state.meta.errors.length ? inputErrCls : ''}`}
                     type="number"
                     min={0}
                     max={59}
                     value={field.state.value}
-                    onChange={(e) =>
-                      field.handleChange(parseInt(e.target.value) || 0)
-                    }
+                    onChange={(e) => field.handleChange(parseInt(e.target.value) || 0)}
                   />
                   {field.state.meta.errors.length > 0 && (
                     <span className="text-[10px] text-red-400">
@@ -252,9 +233,7 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
                   <select
                     className={`${inputCls} cursor-pointer`}
                     value={field.state.value}
-                    onChange={(e) =>
-                      field.handleChange(e.target.value as PaceUnit)
-                    }
+                    onChange={(e) => field.handleChange(e.target.value as PaceUnit)}
                   >
                     <option value="min/mi">min/mi</option>
                     <option value="min/km">min/km</option>
@@ -273,8 +252,7 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
                   label="½× Half Time"
                   onClick={() => {
                     field.handleChange(!field.state.value);
-                    if (!field.state.value)
-                      form.setFieldValue("doubleTimeEnabled", false);
+                    if (!field.state.value) form.setFieldValue('doubleTimeEnabled', false);
                   }}
                 />
               )}
@@ -286,8 +264,7 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
                   label="2× Double Time"
                   onClick={() => {
                     field.handleChange(!field.state.value);
-                    if (!field.state.value)
-                      form.setFieldValue("halfTimeEnabled", false);
+                    if (!field.state.value) form.setFieldValue('halfTimeEnabled', false);
                   }}
                 />
               )}
@@ -301,47 +278,43 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
 
           {/* Mode tabs */}
           <div className="flex gap-1 bg-white/5 rounded-xl p-1">
-            {(["pace+distance", "duration"] as TimingMode[]).map((mode) => (
+            {(['pace+distance', 'duration'] as TimingMode[]).map((mode) => (
               <button
                 key={mode}
                 type="button"
                 onClick={() => setTimingMode(mode)}
                 className={`flex-1 rounded-lg py-1.5 text-xs font-mono transition-all duration-150 ${
                   timingMode === mode
-                    ? "bg-lime-400 text-[#09090f] font-medium"
-                    : "text-white/40 hover:text-white/65"
+                    ? 'bg-lime-400 text-[#09090f] font-medium'
+                    : 'text-white/40 hover:text-white/65'
                 }`}
               >
-                {mode === "pace+distance" ? "Distance" : "Duration"}
+                {mode === 'pace+distance' ? 'Distance' : 'Duration'}
               </button>
             ))}
           </div>
 
           {/* Distance mode */}
-          {timingMode === "pace+distance" && (
+          {timingMode === 'pace+distance' && (
             <div className="flex items-end gap-2">
               <form.Field
                 name="distance"
                 validators={{
                   onChange: ({ value }) =>
-                    value <= 0 || value > 200
-                      ? "Enter a valid distance"
-                      : undefined,
+                    value <= 0 || value > 200 ? 'Enter a valid distance' : undefined,
                 }}
               >
                 {(field) => (
                   <div className="flex flex-col gap-1.5 flex-1">
                     <label className={labelCls}>Distance</label>
                     <input
-                      className={`${inputCls} ${field.state.meta.errors.length ? inputErrCls : ""}`}
+                      className={`${inputCls} ${field.state.meta.errors.length ? inputErrCls : ''}`}
                       type="number"
                       min={0.1}
                       max={200}
                       step={0.1}
                       value={field.state.value}
-                      onChange={(e) =>
-                        field.handleChange(parseFloat(e.target.value) || 0)
-                      }
+                      onChange={(e) => field.handleChange(parseFloat(e.target.value) || 0)}
                     />
                     {field.state.meta.errors.length > 0 && (
                       <span className="text-[10px] text-red-400">
@@ -359,9 +332,7 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
                     <select
                       className={`${inputCls} cursor-pointer`}
                       value={field.state.value}
-                      onChange={(e) =>
-                        field.handleChange(e.target.value as DistanceUnit)
-                      }
+                      onChange={(e) => field.handleChange(e.target.value as DistanceUnit)}
                     >
                       <option value="miles">mi</option>
                       <option value="km">km</option>
@@ -379,26 +350,23 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
           )}
 
           {/* Duration mode */}
-          {timingMode === "duration" && (
+          {timingMode === 'duration' && (
             <form.Field
               name="durationMinutes"
               validators={{
-                onChange: ({ value }) =>
-                  value < 5 || value > 600 ? "Enter 5–600 min" : undefined,
+                onChange: ({ value }) => (value < 5 || value > 600 ? 'Enter 5–600 min' : undefined),
               }}
             >
               {(field) => (
                 <div className="flex flex-col gap-1.5">
                   <label className={labelCls}>Total Minutes</label>
                   <input
-                    className={`${inputCls} ${field.state.meta.errors.length ? inputErrCls : ""}`}
+                    className={`${inputCls} ${field.state.meta.errors.length ? inputErrCls : ''}`}
                     type="number"
                     min={5}
                     max={600}
                     value={field.state.value}
-                    onChange={(e) =>
-                      field.handleChange(parseInt(e.target.value) || 0)
-                    }
+                    onChange={(e) => field.handleChange(parseInt(e.target.value) || 0)}
                   />
                   {field.state.meta.errors.length > 0 && (
                     <span className="text-[10px] text-red-400">
@@ -415,9 +383,7 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
         <section className="bg-white/[0.035] border border-white/[0.08] rounded-2xl p-5 flex flex-col gap-4">
           <div className="flex items-baseline gap-2">
             <SectionHeader num="03" title="Genres" />
-            <span className="ml-auto text-[10px] text-white/30">
-              pick up to 5
-            </span>
+            <span className="ml-auto text-[10px] text-white/30">pick up to 5</span>
           </div>
 
           <form.Field name="genres">
@@ -440,8 +406,8 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
                         }}
                         className={`rounded-full border px-4 py-1.5 text-xs font-mono transition-all duration-150 ${
                           active
-                            ? "border-lime-400 bg-lime-400/10 text-lime-400"
-                            : "border-white/10 bg-white/5 text-white/40 hover:border-white/20 hover:text-white/65"
+                            ? 'border-lime-400 bg-lime-400/10 text-lime-400'
+                            : 'border-white/10 bg-white/5 text-white/40 hover:border-white/20 hover:text-white/65'
                         }`}
                       >
                         {g.label}
@@ -450,9 +416,7 @@ export function PlaylistForm({ onSubmit }: PlaylistFormProps) {
                   })}
                 </div>
                 {selectedGenres.length === 0 && (
-                  <span className="text-[10px] text-red-400">
-                    Select at least one genre
-                  </span>
+                  <span className="text-[10px] text-red-400">Select at least one genre</span>
                 )}
               </div>
             )}
@@ -507,8 +471,8 @@ function ToggleButton({
       onClick={onClick}
       className={`flex-1 rounded-lg border py-2 text-xs font-mono transition-all duration-150 ${
         active
-          ? "border-lime-400 bg-lime-400/10 text-lime-400"
-          : "border-white/10 bg-white/5 text-white/40 hover:border-white/20 hover:text-white/60"
+          ? 'border-lime-400 bg-lime-400/10 text-lime-400'
+          : 'border-white/10 bg-white/5 text-white/40 hover:border-white/20 hover:text-white/60'
       }`}
     >
       {label}
