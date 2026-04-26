@@ -1,6 +1,6 @@
 /**
  * MileSync – Playlist Generation Form
- * Styled entirely with Tailwind CSS v3
+ * Styled entirely with Tailwind CSS
  *
  * Dependencies: @tanstack/react-form
  * Install:      pnpm add @tanstack/react-form

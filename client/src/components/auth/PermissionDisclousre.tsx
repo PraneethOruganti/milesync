@@ -1,5 +1,5 @@
 /**
- * PermissionsDisclosure.tsx
+ * PermissionDisclousre.tsx
  * Shows the user exactly what Spotify permissions will be requested.
  * Transparency builds trust — especially for an app that writes playlists.
  */

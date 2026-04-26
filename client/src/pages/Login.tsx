@@ -1,12 +1,9 @@
 /**
- * SignInPage.tsx
+ * Login.tsx
  * Top-level page component. Composes PageLayout, HeroPanel, and SignInCard.
- * Drop into: client/src/pages/SignInPage.tsx
  *
- * Usage in App.tsx (or your router):
- *   import { SignInPage } from "./pages/SignInPage";
- *   // React Router example:
- *   <Route path="/login" element={<SignInPage />} />
+ * Export:
+ *   import { Login } from "./pages/Login";
  *
  * Font setup (index.html <head>):
  *   <link rel="preconnect" href="https://fonts.googleapis.com" />
